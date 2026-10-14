@@ -100,7 +100,7 @@ class Vector {
     Vector<vec_type>& operator=(Vector<vec_type>&&) noexcept;
 
     vec_type operator[](size_t) const noexcept;
-    vec_type& operator[](size_t) noexcept; // NOLINT(readability/casting)
+    vec_type& operator[](size_t) noexcept;  // NOLINT(readability/casting)
 
     friend std::ostream&
         operator<< (std::ostream& out, const Vector<vec_type>& v1) {
