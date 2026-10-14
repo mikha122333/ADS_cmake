@@ -52,11 +52,17 @@ inline bool MemData<vec_type>::is_full() const noexcept {
     else return 0;
 }
 template<typename vec_type>
-inline size_t MemData<vec_type>::size() const noexcept { return _size; }
+inline size_t MemData<vec_type>::size() const noexcept {
+    return _size; 
+}
 template<typename vec_type>
-inline size_t MemData<vec_type>::capacity() const noexcept { return _capacity; }
+inline size_t MemData<vec_type>::capacity() const noexcept {
+    return _capacity; 
+}
 template<typename vec_type>
-inline const vec_type* const MemData<vec_type>::data() const noexcept { return _data; }
+inline const vec_type* const MemData<vec_type>::data() const noexcept {
+    return _data; 
+}
 
 template<typename vec_type>
 MemData<vec_type>::MemData(std::initializer_list<vec_type> data) {
@@ -78,8 +84,7 @@ MemData<vec_type>::MemData(size_t size, const vec_type* data) {
         for (int i = 0; i < _size; i++) {
             _data[i] = data[i];
         }
-    }
-    else {
+    }else {
         for (int i = 0; i < _size; i++) {
             _data[i] = vec_type();
         }
@@ -123,7 +128,8 @@ void MemData<vec_type>::reset_memory(size_t size, size_t start_index) noexcept {
     _size = size;
     _capacity = _size + MEM_STEP - 1;
     vec_type* tmp = new vec_type[_capacity];
-    if (copy_size > _size) { copy_size = copy_size % _size; }
+    if (copy_size > _size)
+        copy_size = copy_size % _size;
     for (int i = 0; i < copy_size; i++) {
         tmp[i] = _data[(i + start_index) % start_capacity];
     }

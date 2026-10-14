@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include<cstdlib>
-#include "C:\Users\user\Documents\repos\ADS_cmake\lib_TVector\memdata.h"
+#include<utility>
+#include "../lib_TVector/memdata.h"
 
 // Copyright 2026 Ryabov M
 
@@ -47,7 +48,7 @@ class Vector {
         ptr_type* _ptr = nullptr;
     public:
         Iterator() noexcept = default;
-        Iterator(ptr_type* p) noexcept : _ptr(p) {}
+        explicit Iterator(ptr_type* p) noexcept : _ptr(p) {}
 
         ptr_type& operator*()  const { return *_ptr; }
         ptr_type* operator->() const { return _ptr; }
@@ -58,10 +59,10 @@ class Vector {
         Iterator  operator--(int) { Iterator t = *this; --_ptr; return t; }
 
         bool operator==(const Iterator& o) const noexcept {
-            return _ptr == o._ptr; 
+            return _ptr == o._ptr;
         }
         bool operator!=(const Iterator& o) const noexcept {
-            return _ptr != o._ptr; 
+            return _ptr != o._ptr;
         }
     };
 
@@ -75,7 +76,7 @@ class Vector {
     }
 
     const_iterator begin() const noexcept {
-        return const_iterator(_mem._data + _front); 
+        return const_iterator(_mem._data + _front);
     }
     const_iterator end()   const noexcept {
         if (_mem._size == 0) return const_iterator(_mem._data);
@@ -101,7 +102,8 @@ class Vector {
     vec_type operator[](size_t) const noexcept;
     vec_type& operator[](size_t) noexcept;
 
-    friend std::ostream& operator<< (std::ostream& out, const Vector<vec_type>& v1) {
+    friend std::ostream& 
+        operator<< (std::ostream& out, const Vector<vec_type>& v1) {
         out << "{ ";
         if (v1._mem.size() != 0) {
             out << v1._mem.data()[v1._front];
@@ -111,7 +113,7 @@ class Vector {
         }
         out << " }";
         return out;
-    };     // вывод
+    }
     friend std::istream& operator>> (std::istream& in, Vector<vec_type>& v1) {
         Vector<vec_type> tmp;
         vec_type ch;
@@ -121,20 +123,23 @@ class Vector {
         }
         v1 = std::move(tmp);
         return in;
-    };         
-    friend void shake(Vector<vec_type>&);
-    friend void sort_g(Vector<vec_type>&);
-
+    }
     void shrink_to_fit() noexcept;
 };
 template<typename vec_type>
-inline bool Vector<vec_type>::is_empty() const noexcept { return _mem.is_empty(); }
+inline bool Vector<vec_type>::is_empty() const noexcept {
+    return _mem.is_empty();
+}
 template<typename vec_type>
-inline bool Vector<vec_type>::is_full() const noexcept { return _mem.is_full(); }
+inline bool Vector<vec_type>::is_full() const noexcept {
+    return _mem.is_full();
+}
 template<typename vec_type>
 inline size_t Vector<vec_type>::size() const noexcept { return _mem._size; }
 template<typename vec_type>
-inline size_t Vector<vec_type>::capacity() const noexcept { return _mem._capacity; }
+inline size_t Vector<vec_type>::capacity() const noexcept {
+    return _mem._capacity;
+}
 template<typename vec_type>
 inline vec_type Vector<vec_type>::front() const {
     if (_mem._size != 0)
@@ -199,7 +204,8 @@ Vector<vec_type>::Vector(Vector<vec_type>&& v1) {
     v1._back = 0;
 }
 template<typename vec_type>
-Vector<vec_type>& Vector<vec_type>::operator=(const Vector<vec_type>& v1) noexcept {
+Vector<vec_type>& 
+Vector<vec_type>::operator=(const Vector<vec_type>& v1)noexcept {
     if (this != &v1) {
         _mem = v1._mem;
         _front = v1._front;
@@ -302,15 +308,12 @@ template<typename vec_type>
 void Vector<vec_type>::insert(vec_type ch, size_t i) {
     if (i > (*this).size()) {
         throw std::logic_error("i is out of range");
-    }
-    else {
+    }else {
         if (i == 0) {
             (*this).push_front(ch);
-        }
-        else if (i == (*this).size()) {
+        }else if (i == (*this).size()) {
             (*this).push_back(ch);
-        }
-        else {
+        }else {
             this->_mem._size++;
             this->_back = (this->_back + 1) % this->capacity();
             for (int i2 = _mem._size - 1; i2 > i; i2--) {
@@ -329,8 +332,7 @@ template<typename vec_type>
 void Vector<vec_type>::insert_some(vec_type* ch, size_t size, size_t place) {
     if (place > this->_mem._size) {
         throw std::logic_error("place is out of range");
-    }
-    else {
+    }else {
         for (int i = 0; i < size; i++) {
             (*this).insert(ch[i], place + i);
         }
@@ -340,16 +342,14 @@ template<typename vec_type>
 void Vector<vec_type>::erase(size_t i) {
     if (i >= (*this).size()) {
         throw std::logic_error("i is out of range");
-    }
-    else {
+    }else {
         if (i == 0) {
             (*this).pop_front();
-        }
-        else if (i == (*this).size() - 1) {
+        }else if (i == (*this).size() - 1) {
             (*this).pop_back();
-        }
-        else {
-            this->_back = (this->_back - 1 + this->capacity()) % this->capacity();
+        }else {
+            this->_back =
+                (this->_back - 1 + this->capacity()) % this->capacity();
             for (int i2 = i; i2 < this->_mem._size - 1; i2++) {
                 (*this)[i2] = (*this)[i2 + 1];
             }
@@ -369,33 +369,6 @@ void Vector<vec_type>::erase_some(size_t place, size_t count) {
     }
     for (int i = 0; i < count; i++) {
         (*this).erase(place);
-    }
-}
-template<typename vec_type>
-void shake(Vector<vec_type>& v1) {
-    srand(time(0));
-    vec_type tmp_c, tmp_i;
-    for (int i = 0; i < v1.size(); i++) {
-        tmp_i = rand() % v1.size();
-        tmp_c = v1[i];
-        v1[i] = v1[tmp_i];
-        v1[tmp_i] = tmp_c;
-    }
-}
-template<typename vec_type>
-void sort_g(Vector<vec_type>& v1) {
-    vec_type tmp;
-    int max_i;
-    for (int i = 0; i < v1.size() - 1; i++) {
-        max_i = i;
-        for (int i2 = i; i2 < v1.size(); i2++) {
-            if (v1[i2] > v1[max_i]) {
-                max_i = i2;
-            }
-        }
-        tmp = v1[i];
-        v1[i] = v1[max_i];
-        v1[max_i] = tmp;
     }
 }
 template<typename vec_type>
