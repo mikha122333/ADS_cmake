@@ -30,7 +30,7 @@ class MemData {
     inline size_t capacity() const noexcept;
     inline const vec_type* const data() const noexcept;
 
-    void set_memory(size_t) noexcept;
+    void set_memory(size_t size) noexcept;
     void reset_memory(size_t size, size_t start_index = 0) noexcept;
     void clear_memory() noexcept;
 
@@ -53,15 +53,15 @@ inline bool MemData<vec_type>::is_full() const noexcept {
 }
 template<typename vec_type>
 inline size_t MemData<vec_type>::size() const noexcept {
-    return _size; 
+    return _size;
 }
 template<typename vec_type>
 inline size_t MemData<vec_type>::capacity() const noexcept {
-    return _capacity; 
+    return _capacity;
 }
 template<typename vec_type>
 inline const vec_type* const MemData<vec_type>::data() const noexcept {
-    return _data; 
+    return _data;
 }
 
 template<typename vec_type>
@@ -84,7 +84,7 @@ MemData<vec_type>::MemData(size_t size, const vec_type* data) {
         for (int i = 0; i < _size; i++) {
             _data[i] = data[i];
         }
-    }else {
+    } else {
         for (int i = 0; i < _size; i++) {
             _data[i] = vec_type();
         }

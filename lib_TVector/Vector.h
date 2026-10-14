@@ -46,7 +46,7 @@ class Vector {
     template<typename ptr_type>
     class Iterator {
         ptr_type* _ptr = nullptr;
-    public:
+     public:
         Iterator() noexcept = default;
         explicit Iterator(ptr_type* p) noexcept : _ptr(p) {}
 
@@ -100,9 +100,9 @@ class Vector {
     Vector<vec_type>& operator=(Vector<vec_type>&&) noexcept;
 
     vec_type operator[](size_t) const noexcept;
-    vec_type& operator[](size_t) noexcept;
+    vec_type& operator[](size_t) noexcept; // NOLINT(readability/casting)
 
-    friend std::ostream& 
+    friend std::ostream&
         operator<< (std::ostream& out, const Vector<vec_type>& v1) {
         out << "{ ";
         if (v1._mem.size() != 0) {
@@ -204,7 +204,7 @@ Vector<vec_type>::Vector(Vector<vec_type>&& v1) {
     v1._back = 0;
 }
 template<typename vec_type>
-Vector<vec_type>& 
+Vector<vec_type>&
 Vector<vec_type>::operator=(const Vector<vec_type>& v1)noexcept {
     if (this != &v1) {
         _mem = v1._mem;
@@ -244,9 +244,9 @@ void Vector<vec_type>::push_front_some(vec_type* ch, size_t size) noexcept {
 }
 template<typename vec_type>
 void Vector<vec_type>::pop_front() {
-    if (this->_mem._size == 0)
+    if (this->_mem._size == 0) {
         throw std::logic_error("trying to delete front in empty vector");
-    else {
+    } else {
         this->_mem._size--;
         if (this->_mem._size != 0)
             _front = (_front + 1) % this->_mem._capacity;
@@ -278,9 +278,9 @@ void Vector<vec_type>::push_back_some(vec_type* ch, size_t size) noexcept {
 }
 template<typename vec_type>
 void Vector<vec_type>::pop_back() {
-    if (this->_mem._size == 0)
+    if (this->_mem._size == 0) {
         throw std::logic_error("trying to delete front in empty vector");
-    else {
+    } else {
         this->_mem._size--;
         if (this->_mem._size != 0)
             _back = (_back - 1 + this->capacity()) % this->_mem._capacity;
@@ -308,12 +308,12 @@ template<typename vec_type>
 void Vector<vec_type>::insert(vec_type ch, size_t i) {
     if (i > (*this).size()) {
         throw std::logic_error("i is out of range");
-    }else {
+    } else {
         if (i == 0) {
             (*this).push_front(ch);
-        }else if (i == (*this).size()) {
+        } else if (i == (*this).size()) {
             (*this).push_back(ch);
-        }else {
+        } else {
             this->_mem._size++;
             this->_back = (this->_back + 1) % this->capacity();
             for (int i2 = _mem._size - 1; i2 > i; i2--) {
@@ -332,7 +332,7 @@ template<typename vec_type>
 void Vector<vec_type>::insert_some(vec_type* ch, size_t size, size_t place) {
     if (place > this->_mem._size) {
         throw std::logic_error("place is out of range");
-    }else {
+    } else {
         for (int i = 0; i < size; i++) {
             (*this).insert(ch[i], place + i);
         }
@@ -342,12 +342,12 @@ template<typename vec_type>
 void Vector<vec_type>::erase(size_t i) {
     if (i >= (*this).size()) {
         throw std::logic_error("i is out of range");
-    }else {
+    } else {
         if (i == 0) {
             (*this).pop_front();
-        }else if (i == (*this).size() - 1) {
+        } else if (i == (*this).size() - 1) {
             (*this).pop_back();
-        }else {
+        } else {
             this->_back =
                 (this->_back - 1 + this->capacity()) % this->capacity();
             for (int i2 = i; i2 < this->_mem._size - 1; i2++) {
