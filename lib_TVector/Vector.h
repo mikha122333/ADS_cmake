@@ -2,39 +2,40 @@
 #include <iostream>
 #include<cstdlib>
 #include "memdata.h"
+//Copyright 2026 Ryabov M
 template<typename vec_type>
 class Vector {
     MemData<vec_type> _mem;
-    size_t _front;       
-    size_t _back;        
+    size_t _front;
+    size_t _back;
     size_t i_to_ri(size_t) const;
 public:
     Vector(std::initializer_list<vec_type>);
     Vector(size_t size = 0, const vec_type* data = nullptr);
-    Vector(const Vector<vec_type>&); 
-    Vector(Vector<vec_type>&&);      
-    virtual ~Vector() = default;     
+    Vector(const Vector<vec_type>&);
+    Vector(Vector<vec_type>&&);
+    virtual ~Vector() = default;
 
-    inline bool is_empty() const noexcept; 
-    inline bool is_full() const noexcept;  
+    inline bool is_empty() const noexcept;
+    inline bool is_full() const noexcept;
 
-    inline size_t size() const noexcept;   
+    inline size_t size() const noexcept;
     inline size_t capacity() const noexcept;
-    inline vec_type front() const;          
-    inline vec_type back() const;           
+    inline vec_type front() const;
+    inline vec_type back() const;
 
-    inline vec_type& front();               
-    inline vec_type& back();                
+    inline vec_type& front();
+    inline vec_type& back();
 
-    void push_front(vec_type) noexcept;     
+    void push_front(vec_type) noexcept;
     void push_front_some(vec_type*, size_t) noexcept;
-    void push_back(vec_type) noexcept;               
+    void push_back(vec_type) noexcept;
     void push_back_some(vec_type*, size_t) noexcept;
-    void insert(vec_type, size_t);                   
+    void insert(vec_type, size_t);
     void insert_some(vec_type*, size_t, size_t);
-    void pop_front();                               
-    void pop_back();                                
-    void erase(size_t);                             
+    void pop_front();
+    void pop_back();
+    void erase(size_t);
     void erase_some(size_t, size_t);
 
 

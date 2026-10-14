@@ -2,7 +2,7 @@
 #include <initializer_list>
 
 #define MEM_STEP 15
-
+//Copyright 2026 Ryabov M
 template<typename vec_type>
 class Vector;
 
@@ -15,7 +15,7 @@ class MemData {
     void shrink_to_fit(size_t start_index = 0)noexcept;
 public:
     MemData(size_t size = 0, const vec_type* data = nullptr);
-    MemData(std::initializer_list<vec_type>);          
+    MemData(std::initializer_list<vec_type>);
     MemData(const MemData&);
     MemData(MemData&&);
     ~MemData();
@@ -23,16 +23,16 @@ public:
     inline bool is_empty() const noexcept;
     inline bool is_full() const noexcept;
 
-    inline size_t size() const noexcept;             
-    inline size_t capacity() const noexcept;         
-    inline const vec_type* const data() const noexcept; 
+    inline size_t size() const noexcept;
+    inline size_t capacity() const noexcept;
+    inline const vec_type* const data() const noexcept;
 
-    void set_memory(size_t) noexcept;                   
-    void reset_memory(size_t size, size_t start_index = 0) noexcept;          
-    void clear_memory() noexcept;                                             
+    void set_memory(size_t) noexcept;
+    void reset_memory(size_t size, size_t start_index = 0) noexcept;
+    void clear_memory() noexcept;
 
-    MemData<vec_type>& operator=(const MemData<vec_type>&) noexcept;         
-    MemData<vec_type>& operator=(MemData<vec_type>&&) noexcept;              
+    MemData<vec_type>& operator=(const MemData<vec_type>&) noexcept;
+    MemData<vec_type>& operator=(MemData<vec_type>&&) noexcept;
 
     friend class Vector<vec_type>;
 };
