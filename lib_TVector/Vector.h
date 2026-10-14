@@ -1,15 +1,19 @@
 #pragma once
 #include <iostream>
 #include<cstdlib>
-#include "memdata.h"
+#include "C:\Users\user\Documents\repos\ADS_cmake\lib_TVector\memdata.h"
+
 //Copyright 2026 Ryabov M
+
 template<typename vec_type>
 class Vector {
     MemData<vec_type> _mem;
     size_t _front;
     size_t _back;
     size_t i_to_ri(size_t) const;
+
 public:
+
     Vector(std::initializer_list<vec_type>);
     Vector(size_t size = 0, const vec_type* data = nullptr);
     Vector(const Vector<vec_type>&);

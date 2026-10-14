@@ -2,7 +2,9 @@
 #include <initializer_list>
 
 #define MEM_STEP 15
+
 //Copyright 2026 Ryabov M
+
 template<typename vec_type>
 class Vector;
 
@@ -13,7 +15,9 @@ class MemData {
     size_t _capacity;
 
     void shrink_to_fit(size_t start_index = 0)noexcept;
+
 public:
+
     MemData(size_t size = 0, const vec_type* data = nullptr);
     MemData(std::initializer_list<vec_type>);
     MemData(const MemData&);
