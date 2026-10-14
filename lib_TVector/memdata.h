@@ -3,7 +3,7 @@
 
 #define MEM_STEP 15
 
-//Copyright 2026 Ryabov M
+// Copyright 2026 Ryabov M
 
 template<typename vec_type>
 class Vector;
@@ -16,12 +16,11 @@ class MemData {
 
     void shrink_to_fit(size_t start_index = 0)noexcept;
 
-public:
-
-    MemData(size_t size = 0, const vec_type* data = nullptr);
-    MemData(std::initializer_list<vec_type>);
-    MemData(const MemData&);
-    MemData(MemData&&);
+ public:
+    explicit MemData(size_t size = 0, const vec_type* data = nullptr);
+    explicit MemData(std::initializer_list<vec_type>);
+    explicit MemData(const MemData&);
+    explicit MemData(MemData&&);
     ~MemData();
 
     inline bool is_empty() const noexcept;

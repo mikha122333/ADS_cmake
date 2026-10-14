@@ -3,7 +3,7 @@
 #include<cstdlib>
 #include "C:\Users\user\Documents\repos\ADS_cmake\lib_TVector\memdata.h"
 
-//Copyright 2026 Ryabov M
+// Copyright 2026 Ryabov M
 
 template<typename vec_type>
 class Vector {
@@ -12,12 +12,11 @@ class Vector {
     size_t _back;
     size_t i_to_ri(size_t) const;
 
-public:
-
-    Vector(std::initializer_list<vec_type>);
-    Vector(size_t size = 0, const vec_type* data = nullptr);
-    Vector(const Vector<vec_type>&);
-    Vector(Vector<vec_type>&&);
+ public:
+     explicit Vector(std::initializer_list<vec_type>);
+     explicit Vector(size_t size = 0, const vec_type* data = nullptr);
+     explicit Vector(const Vector<vec_type>&);
+     explicit Vector(Vector<vec_type>&&);
     virtual ~Vector() = default;
 
     inline bool is_empty() const noexcept;
@@ -58,8 +57,12 @@ public:
         Iterator& operator--() { --_ptr; return *this; }
         Iterator  operator--(int) { Iterator t = *this; --_ptr; return t; }
 
-        bool operator==(const Iterator& o) const noexcept { return _ptr == o._ptr; }
-        bool operator!=(const Iterator& o) const noexcept { return _ptr != o._ptr; }
+        bool operator==(const Iterator& o) const noexcept {
+            return _ptr == o._ptr; 
+        }
+        bool operator!=(const Iterator& o) const noexcept {
+            return _ptr != o._ptr; 
+        }
     };
 
     typedef Iterator<vec_type>       iterator;
@@ -71,7 +74,9 @@ public:
         return iterator(_mem._data + _back + 1);
     }
 
-    const_iterator begin() const noexcept { return const_iterator(_mem._data + _front); }
+    const_iterator begin() const noexcept {
+        return const_iterator(_mem._data + _front); 
+    }
     const_iterator end()   const noexcept {
         if (_mem._size == 0) return const_iterator(_mem._data);
         return const_iterator(_mem._data + _back + 1);
@@ -87,12 +92,14 @@ public:
         if (_mem._size == 0) return const_iterator(_mem._data);
         return const_iterator(_mem._data + _back);
     }
-    const_iterator rend() const noexcept { return const_iterator(_mem._data + _front - 1); }
-    Vector<vec_type>& operator=(const Vector<vec_type>&) noexcept;      
-    Vector<vec_type>& operator=(Vector<vec_type>&&) noexcept;           
+    const_iterator rend() const noexcept {
+        return const_iterator(_mem._data + _front - 1);
+    }
+    Vector<vec_type>& operator=(const Vector<vec_type>&) noexcept;
+    Vector<vec_type>& operator=(Vector<vec_type>&&) noexcept;
 
-    vec_type operator[](size_t) const noexcept;       
-    vec_type& operator[](size_t) noexcept;            
+    vec_type operator[](size_t) const noexcept;
+    vec_type& operator[](size_t) noexcept;
 
     friend std::ostream& operator<< (std::ostream& out, const Vector<vec_type>& v1) {
         out << "{ ";
