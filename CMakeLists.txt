@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # название проекта
-project(Algorithms-and-Data-Structures)
+project(DataStructure)
 
 # затем следует список инструкций для подключения проектов из подкаталогов
 
