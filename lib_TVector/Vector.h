@@ -4,39 +4,37 @@
 #include "memdata.h"
 template<typename vec_type>
 class Vector {
-    MemData<vec_type> _mem;         // хранилище данных + размер  + вместимость
-    size_t _front;        // индекс первого элемента
-    size_t _back;         // индекс последнего элемента
+    MemData<vec_type> _mem;
+    size_t _front;       
+    size_t _back;        
     size_t i_to_ri(size_t) const;
 public:
-    //Vector(size_t size = 0);                 // конструктор по размеру + по умолчанию
-    Vector(std::initializer_list<vec_type>);   // конструктор по списку инициализацииddd
+    Vector(std::initializer_list<vec_type>);
     Vector(size_t size = 0, const vec_type* data = nullptr);
-    //Vector(vec_type*, size_t);                 // конструктор инициализации
-    Vector(const Vector<vec_type>&);                   // конструктор кsdasdопирования
-    Vector(Vector<vec_type>&&);                        // конструктор с move-семантикой
-    virtual ~Vector() = default;                     // деструктор
+    Vector(const Vector<vec_type>&); 
+    Vector(Vector<vec_type>&&);      
+    virtual ~Vector() = default;     
 
-    inline bool is_empty() const noexcept;          // проверка на пустоту
-    inline bool is_full() const noexcept;           // проверка на переполнение
+    inline bool is_empty() const noexcept; 
+    inline bool is_full() const noexcept;  
 
-    inline size_t size() const noexcept;            // геттер размера
-    inline size_t capacity() const noexcept;        // геттер вместимости
-    inline vec_type front() const;                    // геттер первого элемента
-    inline vec_type back() const;                     // геттер последнего элемента
+    inline size_t size() const noexcept;   
+    inline size_t capacity() const noexcept;
+    inline vec_type front() const;          
+    inline vec_type back() const;           
 
-    inline vec_type& front();                         // сеттер первого элемента
-    inline vec_type& back();                          // сеттер последнего элемента
+    inline vec_type& front();               
+    inline vec_type& back();                
 
-    void push_front(vec_type) noexcept;               // вставка элемента в начало
+    void push_front(vec_type) noexcept;     
     void push_front_some(vec_type*, size_t) noexcept;
-    void push_back(vec_type) noexcept;                // вставка элемента в конец
+    void push_back(vec_type) noexcept;               
     void push_back_some(vec_type*, size_t) noexcept;
-    void insert(vec_type, size_t);                    // вставка элемента по позиции
+    void insert(vec_type, size_t);                   
     void insert_some(vec_type*, size_t, size_t);
-    void pop_front();                               // удаление элемента из начала
-    void pop_back();                                // удаление элемента из конца
-    void erase(size_t);                             // удаление элемента по позиции
+    void pop_front();                               
+    void pop_back();                                
+    void erase(size_t);                             
     void erase_some(size_t, size_t);
 
 
@@ -85,11 +83,11 @@ public:
         return const_iterator(_mem._data + _back);
     }
     const_iterator rend() const noexcept { return const_iterator(_mem._data + _front - 1); }
-    Vector<vec_type>& operator=(const Vector<vec_type>&) noexcept;      // оператор присваивания
-    Vector<vec_type>& operator=(Vector<vec_type>&&) noexcept;           // оператор присваивания с move-семантикой
+    Vector<vec_type>& operator=(const Vector<vec_type>&) noexcept;      
+    Vector<vec_type>& operator=(Vector<vec_type>&&) noexcept;           
 
-    vec_type operator[](size_t) const noexcept;       // оператор обращения по индексу константный
-    vec_type& operator[](size_t) noexcept;            // оператор обращения по индексу
+    vec_type operator[](size_t) const noexcept;       
+    vec_type& operator[](size_t) noexcept;            
 
     friend std::ostream& operator<< (std::ostream& out, const Vector<vec_type>& v1) {
         out << "{ ";
@@ -111,7 +109,7 @@ public:
         }
         v1 = std::move(tmp);
         return in;
-    };          // ввод
+    };         
     friend void shake(Vector<vec_type>&);
     friend void sort_g(Vector<vec_type>&);
 
@@ -154,16 +152,6 @@ template<typename vec_type>
 size_t Vector<vec_type>::i_to_ri(size_t i) const {
     return ((i + _front) % _mem._capacity);
 }
-//template<typename vec_type>
-//Vector<vec_type>::Vector(size_t size) {
-//	MemData<vec_type> tmp(size);
-//	_mem = std::move(tmp);
-//	_front = 0;
-//	if (size > 0)
-//		_back = size - 1;
-//	else
-//		_back = 0;
-//}
 template<typename vec_type>
 Vector<vec_type>::Vector(std::initializer_list<vec_type> li) {
     MemData<vec_type> tmp(li);
@@ -184,15 +172,6 @@ Vector<vec_type>::Vector(size_t size, const vec_type* data) {
     else
         _back = 0;
 }
-//Vector<vec_type>::Vector(vec_type* li, size_t size) {
-//	MemData<vec_type> tmp(li, size);
-//	_mem = (std::move(tmp));
-//	_front = 0;
-//	if (_mem._size > 0)
-//		_back = _mem._size - 1;
-//	else
-//		_back = 0;
-//}
 template<typename vec_type>
 Vector<vec_type>::Vector(const Vector<vec_type>& v1) {
     _mem = v1._mem;
@@ -207,18 +186,6 @@ Vector<vec_type>::Vector(Vector<vec_type>&& v1) {
     _back = v1._back;
     v1._back = 0;
 }
-//template<typename vec_type>
-//std::ostream& operator<<(std::ostream& out, const Vector<vec_type>& v1) {
-//	out << "{ ";
-//	if (v1._mem.size() != 0) {
-//		out << v1._mem.data()[v1._front];
-//	}
-//	for (size_t i = 1; i < v1._mem.size(); i++) {
-//		out << ", " << v1._mem.data()[v1.i_to_ri(i)];
-//	}
-//	out << " }";
-//	return out;
-//}
 template<typename vec_type>
 Vector<vec_type>& Vector<vec_type>::operator=(const Vector<vec_type>& v1) noexcept {
     if (this != &v1) {
@@ -239,23 +206,11 @@ Vector<vec_type>& Vector<vec_type>::operator=(Vector<vec_type>&& v1) noexcept {
     }
     return(*this);
 }
-//template<typename vec_type>
-//std::istream& operator>>(std::istream& in, Vector<vec_type>& v1) {
-//	Vector<vec_type> tmp;
-//	vec_type ch;
-//	in >> ch;
-//	while (in >> ch) {
-//		tmp.push_back(ch);
-//	}
-//	v1 = std::move(tmp);
-//	return in;
-//}
 template<typename vec_type>
 void Vector<vec_type>::push_front(vec_type ch) noexcept {
     this->_mem._size++;
     if (this->_mem._size > 1)
         this->_front = (_front - 1 + _mem._capacity) % _mem._capacity;
-    //_mem._data[_front] = ch;
     if ((*this).is_full()) {
         _mem.reset_memory(_mem._size);
         _front = 0;
@@ -290,7 +245,6 @@ void Vector<vec_type>::push_back(vec_type ch) noexcept {
     this->_mem._size++;
     if (this->_mem._size > 1)
         this->_back = (_back + 1) % _mem._capacity;
-    //_mem._data[_back] = ch;
     if ((*this).is_full()) {
         _mem.reset_memory(_mem._size);
         _front = 0;

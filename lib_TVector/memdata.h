@@ -8,16 +8,14 @@ class Vector;
 
 template<typename vec_type>
 class MemData {
-    vec_type* _data;             // data storage
+    vec_type* _data;
     size_t _size;
     size_t _capacity;
 
     void shrink_to_fit(size_t start_index = 0)noexcept;
 public:
-    //MemData(size_t size = 0);
     MemData(size_t size = 0, const vec_type* data = nullptr);
-    MemData(std::initializer_list<vec_type>);
-    //MemData(vec_type*, size_t);              
+    MemData(std::initializer_list<vec_type>);          
     MemData(const MemData&);
     MemData(MemData&&);
     ~MemData();
@@ -25,16 +23,16 @@ public:
     inline bool is_empty() const noexcept;
     inline bool is_full() const noexcept;
 
-    inline size_t size() const noexcept;                 // геттер размера
-    inline size_t capacity() const noexcept;             // геттер вместимости
-    inline const vec_type* const data() const noexcept;    // геттер хранилища
+    inline size_t size() const noexcept;             
+    inline size_t capacity() const noexcept;         
+    inline const vec_type* const data() const noexcept; 
 
-    void set_memory(size_t) noexcept;                                         // установка памяти без сохранения данных
-    void reset_memory(size_t size, size_t start_index = 0) noexcept;          // перевыделение памяти с сохранением данных
-    void clear_memory() noexcept;                                             // очистка памяти
+    void set_memory(size_t) noexcept;                   
+    void reset_memory(size_t size, size_t start_index = 0) noexcept;          
+    void clear_memory() noexcept;                                             
 
-    MemData<vec_type>& operator=(const MemData<vec_type>&) noexcept;         // оператор присваивания
-    MemData<vec_type>& operator=(MemData<vec_type>&&) noexcept;              // оператор присваивания с move-семантикой
+    MemData<vec_type>& operator=(const MemData<vec_type>&) noexcept;         
+    MemData<vec_type>& operator=(MemData<vec_type>&&) noexcept;              
 
     friend class Vector<vec_type>;
 };
@@ -46,7 +44,6 @@ inline bool MemData<vec_type>::is_empty() const noexcept {
 }
 template<typename vec_type>
 inline bool MemData<vec_type>::is_full() const noexcept {
-    //if (_size != 0 && _size == _capacity)
     if (_size >= _capacity)
         return 1;
     else return 0;
@@ -57,15 +54,7 @@ template<typename vec_type>
 inline size_t MemData<vec_type>::capacity() const noexcept { return _capacity; }
 template<typename vec_type>
 inline const vec_type* const MemData<vec_type>::data() const noexcept { return _data; }
-//template<typename vec_type>
-//MemData<vec_type>::MemData(size_t size) {
-//	_size = size;
-//	_capacity = size + MEM_STEP - 1;
-//	_data = new vec_type[_capacity];
-//	for (int i = 0; i < _capacity; i++) {
-//		_data[i] = 0;
-//	}
-//}
+
 template<typename vec_type>
 MemData<vec_type>::MemData(std::initializer_list<vec_type> data) {
     _size = data.size();
@@ -93,15 +82,6 @@ MemData<vec_type>::MemData(size_t size, const vec_type* data) {
         }
     }
 }
-//template<typename vec_type>
-//MemData<vec_type>::MemData(vec_type* data, size_t size) {
-//	_size = size;
-//	_capacity = _size + MEM_STEP - 1;
-//	_data = new vec_type[_capacity];
-//	for (int i = 0; i < _size; i++) {
-//		_data[i] = data[i];
-//	}
-//}
 template<typename vec_type>
 MemData<vec_type>::MemData(const MemData& m1) {
     this->_size = m1._size;
