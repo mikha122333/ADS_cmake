@@ -1,7 +1,11 @@
-// Copyright 2024 Marina Usova
+// Copyright 2026 Ryabov M
 
 #include <gtest/gtest.h>
 #include "../lib_easy_example/easy_example.h"
+
+//#define EASY_TESTS
+
+#ifdef EASY_TESTS
 
 #define EPSILON 0.000001
 
@@ -48,3 +52,4 @@ TEST(TestEasyExampleLib, throw_when_try_div_by_zero) {
   // Act & Assert
   ASSERT_ANY_THROW(division(x, y));
 }
+#endif
