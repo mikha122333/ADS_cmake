@@ -1,6 +1,7 @@
 // Copyright 2026 Ryabov M
 #pragma once
 #include<stdexcept>
+#include<set>
 
 template<typename st>
 class multiset {
@@ -14,8 +15,9 @@ class multiset {
     size_t amount_of_empty(size_t set)const;
     size_t amount_of_elements(size_t set)const;
     void repackage(size_t prior_set);
+
  public:
-     multiset(size_t size, size_t amount=1);
+     explicit multiset(size_t size, size_t amount = 1);
      multiset(const multiset& other);
 
      ~multiset();
@@ -31,7 +33,7 @@ class multiset {
 };
 
 template<typename st>
-size_t multiset<st>::amount_of_empty(size_t set) const{
+size_t multiset<st>::amount_of_empty(size_t set) const {
     if (set >= _amount)throw std::out_of_range("err w empt for set");
     return(_lasts[set] - _tops[set]);
 }
@@ -52,10 +54,10 @@ void multiset<st>::repackage(size_t prior_set) {
     if (!is_any_nonecessary_empty)
         throw std::logic_error("all emptyness used by other sets");
     st* res = new st[_size];
-    size_t empt_c = 0,elem_c=0;
+    size_t empt_c = 0, elem_c = 0;
     size_t* elem = new size_t[_amount];
     size_t* empt = new size_t[_amount];
-    size_t *r_firsts= new size_t[_amount];
+    size_t *r_firsts = new size_t[_amount];
     size_t* r_lasts = new size_t[_amount];
     int* r_tops = new int[_amount];
     for (size_t i = 0; i < _amount; i++) {
@@ -68,14 +70,15 @@ void multiset<st>::repackage(size_t prior_set) {
     empt_c--;
     size_t tmp = 0;
     for (size_t i = 0; i < _amount && (empt_c > 0); i++) {
-        if (elem[i]==0&&i!=prior_set) {
+        if (elem[i] == 0&&i!=prior_set) {
             empt[i] += 1;
             empt_c--;
         }
     }
-    for (size_t i = 0; i < _amount&&(empt_c>0); i++) {
-        if (!(elem[i]==0)) {
-            tmp = static_cast<size_t>((static_cast<double>(elem[i]) / elem_c) * (static_cast<double>empt_c));
+    for (size_t i = 0; i < _amount&&(empt_c > 0); i++) {
+        if (!(elem[i] == 0)) {
+            tmp = static_cast<size_t>(
+                (static_cast<double>(elem[i]) / elem_c) * (static_cast<double>empt_c));
             empt[i] += tmp;
             empt_c -= tmp;
         }
@@ -106,7 +109,7 @@ void multiset<st>::repackage(size_t prior_set) {
 }
 template<typename st>
 multiset<st>::multiset(size_t size, size_t amount) {
-    if (amount > size||(amount==0)) 
+    if (amount > size || (amount==0))
         throw std::logic_error("tryitng to create strange multiset");
     _data = new st[size];
     _tops = new int[amount];
@@ -160,7 +163,7 @@ template<typename st>
 st multiset<st>::pop(size_t set) {
     if (set >= _amount || is_empty(set))
         throw std::out_of_range("err with pop");
-    st res= _data[_tops[set]];
+    st res = _data[_tops[set]];
     _tops[set]--;
     return res;
 }
@@ -181,7 +184,7 @@ bool multiset<st>::is_empty(size_t set)const {
     return (_tops[set] == _firsts[set]-1);
 }
 template<typename st>
-bool multiset<st>::is_empty()const noexcept{
+bool multiset<st>::is_empty()const noexcept {
     bool res = 1;
     for (size_t i = 0; i < _amount&&res; i++) {
         if (!is_empty(i))
