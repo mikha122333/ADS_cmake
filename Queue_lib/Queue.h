@@ -16,9 +16,7 @@ class Queue {
  public:
      explicit Queue(size_t size);
      Queue(const Queue& other);
-
      ~Queue();
-     
      inline size_t size()const noexcept { return _size; }
      inline t& front()noexcept { return _data[_front]; }
 
