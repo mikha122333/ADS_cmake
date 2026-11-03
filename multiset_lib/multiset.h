@@ -70,7 +70,7 @@ void multiset<st>::repackage(size_t prior_set) {
     empt_c--;
     size_t tmp = 0;
     for (size_t i = 0; i < _amount && (empt_c > 0); i++) {
-        if (elem[i] == 0&&i!=prior_set) {
+        if (elem[i] == 0&&i != prior_set) {
             empt[i] += 1;
             empt_c--;
         }
@@ -78,7 +78,8 @@ void multiset<st>::repackage(size_t prior_set) {
     for (size_t i = 0; i < _amount&&(empt_c > 0); i++) {
         if (!(elem[i] == 0)) {
             tmp = static_cast<size_t>(
-                (static_cast<double>(elem[i]) / elem_c) * (static_cast<double>empt_c));
+                (static_cast<double>(elem[i]) / elem_c) *
+                (static_cast<double>empt_c));
             empt[i] += tmp;
             empt_c -= tmp;
         }
@@ -109,7 +110,7 @@ void multiset<st>::repackage(size_t prior_set) {
 }
 template<typename st>
 multiset<st>::multiset(size_t size, size_t amount) {
-    if (amount > size || (amount==0))
+    if (amount > size || (amount == 0))
         throw std::logic_error("tryitng to create strange multiset");
     _data = new st[size];
     _tops = new int[amount];
