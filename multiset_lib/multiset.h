@@ -79,7 +79,7 @@ void multiset<st>::repackage(size_t prior_set) {
         if (!(elem[i] == 0)) {
             tmp = static_cast<size_t>(
                 (static_cast<double>(elem[i]) / elem_c) *
-                (static_cast<double>empt_c));
+                (static_cast<double>(empt_c)));
             empt[i] += tmp;
             empt_c -= tmp;
         }
