@@ -7,7 +7,9 @@ template<typename t>
 struct Node{
     t _data;
     Node* _next;
-    explicit Node(const t& data, Node* next = nullptr) { _data(data); _next(next); }
+    explicit Node(const t& data, Node* next = nullptr) {
+        _data(data); _next(next);
+    }
     Node(const Node& other) = default;
     Node(Node&& other) = default;
 };
