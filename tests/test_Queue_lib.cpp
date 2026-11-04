@@ -1,8 +1,8 @@
 // Copyright 2026 Ryabov M
 
+#include<string>
 #include<gtest/gtest.h>
 #include"../Queue_lib/Queue.h"
-#include<string>
 
 TEST(QueueTest, CtorAndEmpty) {
     Queue<int> q(5);
