@@ -1,7 +1,7 @@
 // Copyright 2026 Ryabov M
 
-#include <set>
 #include <gtest/gtest.h>
+#include <set>
 #include "../multiset_lib/multiset.h"
 
 TEST(MultistackTest, CtorAndEmpty) {
