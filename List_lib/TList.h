@@ -8,7 +8,8 @@ struct Node{
     t _data;
     Node* _next;
     explicit Node(const t& data, Node* next = nullptr) {
-        _data(data); _next(next);
+        _data = data;
+        _next = next;
     }
     Node(const Node& other) = default;
     Node(Node&& other) = default;
@@ -72,8 +73,9 @@ Node<t>* List<t>::push_front(const t& data)noexcept {
 }
 template<typename t>
 Node<t>* List<t>::push_back(const t& data)noexcept {
-    Node<t>* tmp = new Node<t>(data, _first);
+    Node<t>* tmp = new Node<t>(data);
     if (is_empty()) _first = tmp;
+    else _last->_next = tmp;
     _last = tmp;
     _size++;
     return _last;
@@ -89,7 +91,7 @@ Node<t>* List<t>::insert(const t& data, size_t size) {
     } else {
         Node<t>* next = _first;
         Node<t>* prev;
-        for (int i = 1; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             prev = next;
             next = next->_next;
         }
@@ -105,6 +107,7 @@ void List<t>::insert(const t& data, Node<t>* where) {
     if (!is_node_exist(where)) throw std::logic_error("list dontcontain nod");
     Node<t>* res = new Node<t>(data, where->_next);
     where->_next = res;
+    if (where == _last) _last = res;
     _size++;
 }
 template<typename t>
@@ -121,7 +124,7 @@ t List<t>::pop_front() {
 }
 template<typename t>
 t List<t>::pop_back() {
-    if (is_empty())throw std::logic_error("err pop_front");
+    if (is_empty())throw std::logic_error("err pop_back");
     t res = _last->_data;
     if (_size == 1) {
         pop_front();
@@ -132,6 +135,7 @@ t List<t>::pop_back() {
         }
         delete _last;
         _last = new_last;
+        _last->_next = nullptr;
         _size--;
     }
     return res;
@@ -139,7 +143,6 @@ t List<t>::pop_back() {
 template<typename t>
 t List<t>::erase(size_t num) {
     if (num >= _size || is_empty()) throw std::out_of_range("err in erase");
-    Node<t>* prev = _first;
     t res;
     if (num == 0 || _size == 1) {
         res = pop_front();
@@ -153,7 +156,8 @@ t List<t>::erase(size_t num) {
         Node<t>* tmp_to_del = prev->_next;
         res = tmp_to_del->_data;
         prev->_next = tmp_to_del->_next;
-        delete tmp_to_del
+        delete tmp_to_del;
+        _size--;
     }
     return res;
 }
@@ -163,7 +167,7 @@ t List<t>::erase(Node<t>* nod) {
     t res = nod->_data;
     if (nod == _first || _size == 1) {
         pop_front();
-    } else if (nod = _last) {
+    } else if (nod == _last) {
         pop_back();
     } else {
         Node<t>* prev = _first;
@@ -171,13 +175,14 @@ t List<t>::erase(Node<t>* nod) {
             prev = prev->_next;
         }
         prev->_next = nod->_next;
-        delete nod
+        delete nod;
+        _size--;
     }
     return res;
 }
 template<typename t>
 Node<t>* List<t>::find(const t& elem)const noexcept {
-    if (is_empty())throw nullptr;
+    if (is_empty())return nullptr;
     Node<t>* res = _first;
     bool is_found = 0;
     if (res->_data == elem)
