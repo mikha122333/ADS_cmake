@@ -1,7 +1,7 @@
 // Copyright 2026 Ryabov M
 
-#include<string>
 #include<gtest/gtest.h>
+#include<string>
 #include"../Queue_lib/Queue.h"
 
 TEST(QueueTest, CtorAndEmpty) {
