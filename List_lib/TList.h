@@ -7,7 +7,7 @@ template<typename t>
 struct Node{
     t _data;
     Node* _next;
-    Node(const t& data, Node* next=nullptr) { _data(data); _next(next); }
+    explicit Node(const t& data, Node* next = nullptr) { _data(data); _next(next); }
     Node(const Node& other) = default;
     Node(Node&& other) = default;
 };
@@ -85,7 +85,7 @@ Node<t>* List<t>::insert(const t& data, size_t size) {
     } else if (size == _size) {
         res = push_back(data);
     } else {
-        Node<t>* next=_first;
+        Node<t>* next = _first;
         Node<t>* prev;
         for (int i = 1; i < size; i++) {
             prev = next;
@@ -110,7 +110,7 @@ t List<t>::pop_front() {
     if (is_empty())throw std::logic_error("err pop_front");
     t res = _first->_data;
     Node<t>* new_first = nullptr;
-    if(_size >= 2) new_first = _first->_next;
+    if (_size >= 2) new_first = _first->_next;
     delete _first;
     _first = new_first;
     if (_size == 1) _last = nullptr;
