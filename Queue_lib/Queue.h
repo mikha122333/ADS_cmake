@@ -57,7 +57,7 @@ Queue<t>::~Queue() { delete[]_data;}
 template<class t>
 void Queue<t>::push(const t& el) {
     if (is_full()) throw std::logic_error("trying push to full Queue");
-    if(!is_empty())
+    if ( !is_empty() )
         _back = (_back+(_size-1)) % _size;
     _count++;
     _data[i_to_real_i(0)] = el;
@@ -66,7 +66,7 @@ template<class t>
 t Queue<t>::pop() {
     if (is_empty())throw std::logic_error("tried pop empty queue");
     t res = _data[_front];
-    if(_count != 1)
+    if ( _count != 1 )
         _front = (_front + (_size - 1)) % _size;
     _count--;
     return res;
