@@ -18,14 +18,11 @@ bool check_breckets(std::string expressiion) {
                 expressiion[i] == '[' ||
                 expressiion[i] == '{') {
                 st.push(expressiion[i]);
-            }
-            else if (expressiion[i] == ')' && st.top() == '(') {
+            } else if (expressiion[i] == ')' && st.top() == '(') {
                 st.pop();
-            }
-            else if (expressiion[i] == ']' && st.top() == '[') {
+            } else if (expressiion[i] == ']' && st.top() == '[') {
                 st.pop();
-            }
-            else if (expressiion[i] == '}' && st.top() == '{') {
+            } else if (expressiion[i] == '}' && st.top() == '{') {
                 st.pop();
             }
         } catch (...) {

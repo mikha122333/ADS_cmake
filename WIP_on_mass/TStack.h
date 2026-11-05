@@ -1,3 +1,5 @@
+#pragma once
+
 // Copyright 2026 Ryabov M
 
 #include <stdexcept>
@@ -7,7 +9,7 @@ class Stack {
     size_t _size;
     size_t _top;
  public:
-     Stack(size_t size);
+     explicit Stack(size_t size);
      Stack(const Stack& other);
      ~Stack();
 
