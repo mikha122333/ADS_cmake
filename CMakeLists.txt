@@ -17,12 +17,9 @@ add_subdirectory(lib_easy_example)    # подключаем дополните�
 
 add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
-<<<<<<< HEAD
 add_subdirectory(WIP_on_mass)
-=======
-add_subDirectory(Queue_lib)
 
->>>>>>> b201f6892b5dc8277db94fef5988c25dfe9ff30d
+add_subDirectory(Queue_lib)
 
 option(BTEST "build test?" ON)        # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)
 
