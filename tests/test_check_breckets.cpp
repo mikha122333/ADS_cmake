@@ -25,4 +25,32 @@ TEST(test_check_br, test_easy_bad) {
     EXPECT_FALSE(check_breckets(tmp2));
     EXPECT_FALSE(check_breckets(tmp3));
 }
+
+TEST(test_check_br, test_easy_bad_2) {
+    std::string tmp1 = "(()";
+    std::string tmp2 = "[[]";
+    std::string tmp3 = "{{}";
+    EXPECT_FALSE(check_breckets(tmp1));
+    EXPECT_FALSE(check_breckets(tmp2));
+    EXPECT_FALSE(check_breckets(tmp3));
+}
+
+TEST(test_check_br, test_easy_good_2) {
+    std::string tmp1 = "({[]})";
+    std::string tmp2 = "[{()}]";
+    std::string tmp3 = "{[()]}";
+    EXPECT_TRUE(check_breckets(tmp1));
+    EXPECT_TRUE(check_breckets(tmp2));
+    EXPECT_TRUE(check_breckets(tmp3));
+}
+
+TEST(test_check_br, test_easy_bad_3) {
+    std::string tmp1 = "{()";
+    std::string tmp2 = "[])";
+    std::string tmp3 = "[{}]]";
+    EXPECT_FALSE(check_breckets(tmp1));
+    EXPECT_FALSE(check_breckets(tmp2));
+    EXPECT_FALSE(check_breckets(tmp3));
+}
+
 #endif
