@@ -11,7 +11,7 @@ TEST(test_stack, con_1) {
     EXPECT_FALSE(tmp.is_full());
 }
 TEST(test_stack, con_wrong) {
-    EXPECT_ANY_THROW( Stack<int> tmp(0));
+    EXPECT_ANY_THROW(Stack<int> tmp(0));
 }
 TEST(test_stack, con_copy) {
     Stack<int> tmp1(5);
@@ -32,7 +32,7 @@ TEST(test_stack, con_copy_dont_change) {
     EXPECT_EQ(tmp.pop(), 1);
     EXPECT_EQ(tmp.pop(), 0);
 }
-TEST(test_stack, con_copy_dont_change) {
+TEST(test_stack, con_copy_dont_change_2) {
     Stack<int> tmp1(5);
     for (int i = 0; i < 2; i++) {
         tmp1.push(i);
