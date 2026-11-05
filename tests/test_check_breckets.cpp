@@ -1,6 +1,7 @@
 // Copyright 2026 Ryabov M
 
 #include <gtest/gtest.h>
+#include<string>
 #include "../lib_easy_example/easy_example.h"
 
 #define CHECK_BRECKETS_TESTS

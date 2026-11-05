@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 #include "../lib_easy_example/easy_example.h"
 
-//#define EASY_TESTS
+// #define EASY_TESTS
 
 #ifdef EASY_TESTS
 

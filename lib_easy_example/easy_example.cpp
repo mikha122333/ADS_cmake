@@ -1,6 +1,7 @@
 // Copyright 2026 Ryabov M
 
 #include <stdexcept>
+#include<string>
 #include "../lib_easy_example/easy_example.h"
 
 float division(int a, int b) {
