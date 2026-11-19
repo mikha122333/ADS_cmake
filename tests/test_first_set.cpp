@@ -32,17 +32,24 @@ TEST(test_stack, con_copy_dont_change) {
     EXPECT_EQ(tmp.pop(), 1);
     EXPECT_EQ(tmp.pop(), 0);
 }
-TEST(test_stack, con_copy_dont_change_2) {
-    Stack<int> tmp1(5);
-    for (int i = 0; i < 2; i++) {
-        tmp1.push(i);
+TEST(test_stack, push_to_full) {
+    Stack<int> tmp(1);
+    tmp.push(1);
+    EXPECT_ANY_THROW(tmp.push(2121));
+}
+TEST(test_stack, pop_from_empty) {
+    Stack<int> tmp(1);
+    EXPECT_ANY_THROW(tmp.pop());
+}
+TEST(test_stack, is_push_pop_front_okay) {
+    Stack<int> tmp(5);
+    for (int i = 0; i < 15; i++) {
+        tmp.push(i);
+        if(tmp.is_full())
+            for (int i2 = 0; i2 < 5; i2++) {
+                EXPECT_EQ(tmp.pop(), i - i2);
+            }
     }
-    Stack<int> tmp(tmp1);
-    tmp.push(3);
-    EXPECT_EQ(tmp1.pop(), 1);
-    EXPECT_EQ(tmp1.pop(), 0);
-    EXPECT_EQ(tmp.pop(), 3);
-    EXPECT_EQ(tmp.pop(), 1);
-    EXPECT_EQ(tmp.pop(), 0);
+    EXPECT_TRUE(tmp.is_empty());
 }
 #endif
