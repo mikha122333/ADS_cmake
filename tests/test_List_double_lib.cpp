@@ -1,4 +1,6 @@
-// TList_double_tests.cpp
+
+// Copyright 2026 Ryabov M
+
 #include <gtest/gtest.h>
 #include "../List_double_lib/TList_double.h"
 
