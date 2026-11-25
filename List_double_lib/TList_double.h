@@ -72,12 +72,12 @@ class List_double {
         }
 
         Iterator& operator--() {
-            if (_here == _first)throw std::out_of_range("iter oof");
+            if (_here==nullptr||_here->_prev == nullptr)throw std::out_of_range("iter oof");
             _here = (*_here)._prev;
             return (*this);
         }
         Iterator operator--(int) {
-            if (_here == _first)throw std::out_of_range("iter oof");
+            if (_here == nullptr || _here->_prev == nullptr)throw std::out_of_range("iter oof");
             Iterator res(_here);
             _here = (*_here)._prev;
             return res;
@@ -173,6 +173,7 @@ Node<t>* List_double<t>::push_back(const t& data)noexcept {
         _first = tmp;
     } else {
         _last->_next = tmp;
+        tmp->_prev = _last;
     }
     _last = tmp;
     _size++;
