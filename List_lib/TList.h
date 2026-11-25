@@ -22,7 +22,6 @@ class List{
     bool is_node_exist(Node<t>* some)const noexcept;
 
  public:
-
      List();
 
      ~List();
@@ -34,10 +33,9 @@ class List{
 
      template<typename it>
      class Iterator {
-         it* _here=nullptr;
+         it* _here = nullptr;
 
       public:
-
          Iterator()noexcept = default;
          explicit Iterator(it* other)noexcept:_here(other) {}
 
