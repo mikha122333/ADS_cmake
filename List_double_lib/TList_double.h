@@ -72,7 +72,7 @@ class List_double {
         }
 
         Iterator& operator--() {
-            if (_here == nullptr||_here->_prev == nullptr)
+            if (_here == nullptr || _here->_prev == nullptr)
                 throw std::out_of_range("iter oof");
             _here = (*_here)._prev;
             return (*this);
