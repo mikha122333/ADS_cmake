@@ -30,6 +30,67 @@ class List{
      Node<t>* insert(const t& data, size_t size);
      void insert(const t& data, Node<t>* where);
 
+     template<typename it>
+     class Iterator {
+         it* _here=nullptr;
+      public:
+         Iterator()noexcept = default;
+         Iterator(it* other)noexcept:_here(other){}
+
+         void operator =(const Iterator& other) { _here = other._here; }
+
+         t& operator*() noexcept{ return _here->_data; }
+
+         Iterator& operator++() {
+             if (_here == nullptr)throw std::out_of_range("iter oof");
+             _here = (*_here)._next; 
+             return (*this);
+         }
+         Iterator operator++(int) {
+             if (_here == nullptr)throw std::out_of_range("iter oof");
+             Iterator res(_here);
+             _here = (*_here)._next;
+             return res;
+         }
+         Iterator& operator+=(size_t num) {
+             Iterator tmp(this->_here);
+             int i = 0;
+             for (; i < num; i++) {
+                 (tmp)++;
+             }
+             (*this) = tmp;
+             return(*this);
+         }
+         Iterator operator+(size_t num) {
+             Iterator tmp(_here);
+             tmp += num;
+             return tmp;
+         }
+
+         bool operator ==(const Iterator& other)const noexcept {
+             return _here == other._here;
+         }
+         bool operator !=(const Iterator& other)const noexcept {
+             return _here != other._here;
+         }
+     };
+
+     typedef Iterator<Node<t>> iterator;
+     typedef Iterator<Node<const t>> const_iterator;
+
+     iterator begin()  noexcept {
+         return iterator(_first);
+     }
+     const_iterator begin() const noexcept {
+         return const_iterator(_first);
+     }
+     iterator end() noexcept {
+         return iterator(nullptr);
+     }
+     const_iterator end()const noexcept{
+         return const_iterator(nullptr);
+     }
+
      t pop_back();
      t pop_front();
      t erase(size_t num);

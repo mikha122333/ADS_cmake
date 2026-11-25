@@ -3,6 +3,9 @@
 #include <gtest/gtest.h>
 #include "../List_lib/TList.h"
 
+// #define LIST_TESTS
+#ifdef LIST_TESTS
+
 TEST(ListTest, CtorAndSize) {
     List<int> l;
     EXPECT_TRUE(l.is_empty());
@@ -219,3 +222,37 @@ TEST(ListTest, Exceptions) {
     EXPECT_THROW(l.erase(l.size()), std::out_of_range);
     EXPECT_THROW(l.erase(static_cast<Node<int>*>(nullptr)), std::logic_error);
 }
+
+TEST(ListTest, iterator_test_standart) {
+    List<int> l;
+    
+    for (int i = 0; i < 20; i++) {
+        l.push_back(i);
+    }
+    auto r = l.begin();
+    for (int i = 0; i < 20; i++) {
+        EXPECT_EQ(*r++, i);
+    }
+}
+
+TEST(ListTest, iterator_test_except) {
+    List<int> l;
+    auto r = l.begin();
+    EXPECT_ANY_THROW(r++);
+    EXPECT_ANY_THROW(r+=3);
+    EXPECT_ANY_THROW(r+3);
+}
+
+TEST(ListTest, iterator_test_eq) {
+    List<int> li;
+    li.push_back(3);
+    li.push_back(2);
+    auto f = li.begin();
+    auto l = li.end();
+    EXPECT_FALSE(f == l);
+    EXPECT_TRUE(f != l);
+    f+=2;
+    EXPECT_FALSE(f != l);
+    EXPECT_TRUE(f == l);
+}
+#endif

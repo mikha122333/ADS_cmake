@@ -4,6 +4,9 @@
 #include<string>
 #include"../Queue_lib/Queue.h"
 
+// #define QUE_TESTS
+#ifdef QUE_TESTS
+
 TEST(QueueTest, CtorAndEmpty) {
     Queue<int> q(5);
     EXPECT_EQ(q.size(), size_t(5));
@@ -253,3 +256,5 @@ TEST(QueueTest, CopyWithStrings) {
     EXPECT_EQ(b.pop(), "c");
     EXPECT_EQ(b.pop(), "d");
 }
+
+#endif

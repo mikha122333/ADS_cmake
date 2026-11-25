@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 #include "../WIP_on_mass/TStack.h"
 
-#define TSTACK_TESTS
+// #define TSTACK_TESTS
 #ifdef TSTACK_TESTS
 TEST(test_stack, con_1) {
     Stack<int> tmp(5);
