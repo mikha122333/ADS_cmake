@@ -20,7 +20,9 @@ class List{
     Node<t>* _last;
     size_t _size;
     bool is_node_exist(Node<t>* some)const noexcept;
+
  public:
+
      List();
 
      ~List();
@@ -33,17 +35,19 @@ class List{
      template<typename it>
      class Iterator {
          it* _here=nullptr;
+
       public:
+
          Iterator()noexcept = default;
-         Iterator(it* other)noexcept:_here(other){}
+         explicit Iterator(it* other)noexcept:_here(other) {}
 
          void operator =(const Iterator& other) { _here = other._here; }
 
-         t& operator*() noexcept{ return _here->_data; }
+         t& operator*() noexcept { return _here->_data; }
 
          Iterator& operator++() {
              if (_here == nullptr)throw std::out_of_range("iter oof");
-             _here = (*_here)._next; 
+             _here = (*_here)._next;
              return (*this);
          }
          Iterator operator++(int) {
@@ -87,7 +91,7 @@ class List{
      iterator end() noexcept {
          return iterator(nullptr);
      }
-     const_iterator end()const noexcept{
+     const_iterator end()const noexcept {
          return const_iterator(nullptr);
      }
 

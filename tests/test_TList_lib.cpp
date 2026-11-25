@@ -225,7 +225,6 @@ TEST(ListTest, Exceptions) {
 
 TEST(ListTest, iterator_test_standart) {
     List<int> l;
-    
     for (int i = 0; i < 20; i++) {
         l.push_back(i);
     }
