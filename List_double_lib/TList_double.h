@@ -23,7 +23,7 @@ class List_double {
     size_t _size;
     bool is_node_exist(Node<t>* some)const noexcept;
 
-public:
+ public:
     List_double();
 
     ~List_double();
@@ -37,7 +37,7 @@ public:
     class Iterator {
         it* _here = nullptr;
 
-    public:
+     public:
         Iterator()noexcept = default;
         explicit Iterator(it* other)noexcept :_here(other) {}
 
@@ -184,18 +184,16 @@ Node<t>* List_double<t>::insert(const t& data, size_t size) {
     Node<t>* res;
     if (is_empty() || size == 0) {
         res = push_front(data);
-    }
-    else if (size == _size) {
+    } else if (size == _size) {
         res = push_back(data);
-    }
-    else {
+    } else {
         Node<t>* next = _first;
         Node<t>* prev;
         for (int i = 0; i < size; i++) {
             prev = next;
             next = next->_next;
         }
-        Node<t>* new_nod = new Node<t>(data, next,prev);
+        Node<t>* new_nod = new Node<t>(data, next, prev);
         next->_prev = new_nod;
         prev->_next = new_nod;
         _size++;
@@ -234,8 +232,7 @@ t List_double<t>::pop_back() {
     t res = _last->_data;
     if (_size == 1) {
         pop_front();
-    }
-    else {
+    } else {
         Node<t>* new_last = _last->_prev;
         delete _last;
         _last = new_last;
@@ -250,11 +247,9 @@ t List_double<t>::erase(size_t num) {
     t res;
     if (num == 0 || _size == 1) {
         res = pop_front();
-    }
-    else if (num == _size - 1) {
+    } else if (num == _size - 1) {
         res = pop_back();
-    }
-    else {
+    } else {
         Node<t>* prev = _first;
         for (int i = 1; i < num; i++) {
             prev = prev->_next;
@@ -274,11 +269,9 @@ t List_double<t>::erase(Node<t>* nod) {
     t res = nod->_data;
     if (nod == _first || _size == 1) {
         pop_front();
-    }
-    else if (nod == _last) {
+    } else if (nod == _last) {
         pop_back();
-    }
-    else {
+    } else {
         nod->_prev->_next = nod->_next;
         nod->_next->_prev = nod->_prev;
         delete nod;
