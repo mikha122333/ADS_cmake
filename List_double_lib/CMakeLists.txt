@@ -1,0 +1,1 @@
+create_project_lib(TList_double_lib)

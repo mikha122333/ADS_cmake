@@ -21,6 +21,8 @@ add_subdirectory(WIP_on_mass)
 
 add_subDirectory(Queue_lib)
 
+add_subDirectory(List_double_lib)
+
 option(BTEST "build test?" ON)        # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)
 
 if(BTEST)                             # если тесты подключены         
